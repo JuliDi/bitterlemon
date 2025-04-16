@@ -1,9 +1,8 @@
 //! Encodes a boolean stream, then decodes it, checking that the output matches the input
 
-use arrayvec;
 use random::Source;
 
-use criterion::{criterion_group, criterion_main, Criterion};
+use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use bitterlemon::{
 	encode,
 	decode,
@@ -14,8 +13,8 @@ fn random_kilobyte(c: &mut Criterion) {
 
 	const DATA_SIZE : usize = 1024;
 
-	c.bench_function("1kb round-trip", |b| {
-		let mut source = arrayvec::ArrayVec::<[_; DATA_SIZE]>::new();
+	c.bench_function("1kb round-trip", |b: &mut criterion::Bencher<'_>| {
+		let mut source = arrayvec::ArrayVec::<_, DATA_SIZE>::new();
 
 		for _ in 0..(DATA_SIZE / 64) {
 			let rand = rand_source.read_u64();
@@ -25,9 +24,10 @@ fn random_kilobyte(c: &mut Criterion) {
 		}
 
 		assert_eq!(source.len(), source.capacity());
+
 		b.iter(|| {
-			let encoder = encode(source.iter().copied());
-			let decoder = decode(encoder);
+			let encoder = encode(black_box(source.iter().copied()));
+			let decoder = decode(black_box(encoder));
 
 			source.iter().map(|s| Ok(*s))
 			.zip(decoder)

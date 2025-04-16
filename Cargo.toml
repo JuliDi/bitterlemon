@@ -13,8 +13,8 @@ keywords = ["rle", "bitstream", "pack"]
 arrayvec = ">= 0.7"
 
 [dev-dependencies]
-criterion = "0.3"
-random = ">= 0.13"
+criterion = "0.5.1"
+random = ">= 0.14"
 
 [[bench]]
 name = "test_encode_round_trip"
