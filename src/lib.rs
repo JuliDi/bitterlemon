@@ -22,6 +22,8 @@
 //! assert_eq!(134, decoded.len());
 //! ```
 
+#![no_std]
+
 mod encode;
 mod decode;
 
