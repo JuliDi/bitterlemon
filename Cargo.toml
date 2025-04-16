@@ -1,21 +1,21 @@
 [package]
-name = "bitterlemon"
-edition = "2018"
-version = "0.2.4"
 authors = ["Simon Harris <simon@pearfalse.com>"]
-description = "An RLE-based encoder and decoder for bit streams."
-license = "MIT"
-repository = "https://github.com/pearfalse/bitterlemon"
 categories = ["compression"]
-keywords = ["rle", "bitstream", "pack"]
+description = "An RLE-based encoder and decoder for bit streams."
+edition = "2018"
+keywords = ["bitstream", "pack", "rle"]
+license = "MIT"
+name = "bitterlemon"
+repository = "https://github.com/pearfalse/bitterlemon"
+version = "0.2.4"
 
 [dependencies]
-arrayvec = ">= 0.7"
+arrayvec = { version = ">= 0.7", default-features = false }
 
 [dev-dependencies]
 criterion = "0.5.1"
 random = ">= 0.14"
 
 [[bench]]
-name = "test_encode_round_trip"
 harness = false
+name = "test_encode_round_trip"
